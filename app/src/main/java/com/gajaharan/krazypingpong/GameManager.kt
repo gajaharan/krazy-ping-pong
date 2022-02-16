@@ -6,19 +6,20 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import java.util.*
+import com.gajaharan.krazypingpong.sprites.Ball
+import com.gajaharan.krazypingpong.sprites.Box
 
 class GameManager(context: Context, attributeSet: AttributeSet) :
     SurfaceView(context, attributeSet),
     SurfaceHolder.Callback {
     private var displayWidth = Resources.getSystem().displayMetrics.widthPixels
     private var displayHeight = Resources.getSystem().displayMetrics.heightPixels
-    private var boxPoint: Point
+    private val pointBox: Box = Box(resources, displayWidth, displayHeight)
+    private val ball: Ball = Ball(resources, displayWidth, displayHeight)
     private val gameEngine = GameEngine(holder, this)
 
     init {
         holder.addCallback(this)
-        boxPoint = Point(Random().nextInt(displayWidth), Random().nextInt(displayHeight))
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -42,20 +43,7 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
         canvas?.drawColor(Color.BLACK)
-
-        val boxPaint = Paint()
-        val boxSizeX = 40
-        val boxSizeY = 40
-        boxPaint.setARGB(
-            255,
-            Random().nextInt(256),
-            Random().nextInt(256),
-            Random().nextInt(256)
-        )
-
-        canvas?.drawRect(
-            Rect(boxPoint.x, boxPoint.y, boxPoint.x + boxSizeX, boxPoint.y + boxSizeY),
-            boxPaint
-        )
+        pointBox.draw(canvas)
+        ball.draw(canvas)
     }
 }

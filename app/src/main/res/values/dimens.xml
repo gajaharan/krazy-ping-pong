@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ball_height">15dp</dimen>
+    <dimen name="ball_width">15dp</dimen>
+    <dimen name="box_height">15dp</dimen>
+    <dimen name="box_width">15dp</dimen>
+</resources>
