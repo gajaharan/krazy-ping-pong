@@ -2,12 +2,15 @@ package com.gajaharan.krazypingpong
 
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.gajaharan.krazypingpong.sprites.Ball
 import com.gajaharan.krazypingpong.sprites.Box
+import com.gajaharan.krazypingpong.sprites.Sprite
 
 class GameManager(context: Context, attributeSet: AttributeSet) :
     SurfaceView(context, attributeSet),
@@ -46,4 +49,13 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
         pointBox.draw(canvas)
         ball.draw(canvas)
     }
+
+    fun update() {
+        if (collision(ball, pointBox)) {
+            pointBox.generateNewPointBox()
+        }
+    }
+
+    private fun collision(a: Sprite, b: Sprite) =
+        Rect.intersects(a.getRectangle(), b.getRectangle())
 }

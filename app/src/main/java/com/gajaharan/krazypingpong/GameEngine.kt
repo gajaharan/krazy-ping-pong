@@ -22,6 +22,7 @@ class GameEngine(var surfaceHolder: SurfaceHolder, val gameManager: GameManager)
             try {
                 canvas = surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
+                    gameManager.update()
                     gameManager.draw(canvas)
                 }
             } catch (ex: Exception) {
