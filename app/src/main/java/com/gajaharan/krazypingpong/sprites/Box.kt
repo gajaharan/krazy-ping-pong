@@ -13,15 +13,17 @@ class Box(
     private val displayWidth: Int,
     private val displayHeight: Int,
     var x: Int = 0,
-    var y: Int = 0
+    var y: Int = 0,
+    var width: Int = 0,
+    var height: Int = 0
 ) : Sprite {
-    private var boxWidth: Int = resources.getDimension(R.dimen.box_width).toInt()
-    private var boxHeight: Int = resources.getDimension(R.dimen.box_height).toInt()
     private var randomBoxColor: Triple<Int, Int, Int> =
         Triple(Random().nextInt(256), Random().nextInt(256), Random().nextInt(256))
     private var boxPoint: Point
 
     init {
+        width = resources.getDimension(R.dimen.box_width).toInt()
+        height = resources.getDimension(R.dimen.box_height).toInt()
         boxPoint = generateNewPointBox()
     }
 
@@ -40,7 +42,7 @@ class Box(
         canvas?.drawRect(getRectangle(), boxPaint)
     }
 
-    override fun getRectangle(): Rect = Rect(x, y, x + boxWidth, y + boxHeight)
+    override fun getRectangle(): Rect = Rect(x, y, x + width, y + height)
 
     fun generateNewPointBox(): Point {
         boxPoint = Point(Random().nextInt(displayWidth / 2), Random().nextInt(displayHeight / 2))

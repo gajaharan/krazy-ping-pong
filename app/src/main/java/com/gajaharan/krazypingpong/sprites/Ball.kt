@@ -14,19 +14,19 @@ class Ball(
     private val displayWidth: Int,
     private val displayHeight: Int,
     var x: Int = 0,
-    var y: Int = 0
+    var y: Int = 0,
+    var width: Int = 0,
+    var height: Int = 0
 ) :
     Sprite {
     private val ball: Bitmap
-    private var ballWidth: Int = 0
-    private var ballHeight: Int = 0
     private val velocity: Velocity = Velocity(32, 25)
 
     init {
-        ballWidth = resources.getDimension(R.dimen.ball_width).toInt()
-        ballHeight = resources.getDimension(R.dimen.ball_height).toInt()
+        width = resources.getDimension(R.dimen.ball_width).toInt()
+        height = resources.getDimension(R.dimen.ball_height).toInt()
         val originalBall = BitmapFactory.decodeResource(resources, R.drawable.ball)
-        ball = Bitmap.createScaledBitmap(originalBall, ballWidth, ballHeight, false)
+        ball = Bitmap.createScaledBitmap(originalBall, width, height, false)
         y = Random().nextInt(displayHeight)
     }
 
@@ -44,5 +44,5 @@ class Ball(
         canvas?.drawBitmap(ball, x.toFloat(), y.toFloat(), null)
     }
 
-    override fun getRectangle() = Rect(x, y, x + ballWidth, y + ballHeight)
+    override fun getRectangle() = Rect(x, y, x + width, y + height)
 }

@@ -2,6 +2,8 @@
 <resources>
     <dimen name="ball_height">15dp</dimen>
     <dimen name="ball_width">15dp</dimen>
-    <dimen name="box_height">20dp</dimen>
-    <dimen name="box_width">20dp</dimen>
+    <dimen name="box_height">15dp</dimen>
+    <dimen name="box_width">15dp</dimen>
+    <dimen name="paddle_height">60dp</dimen>
+    <dimen name="paddle_width">15dp</dimen>
 </resources>
