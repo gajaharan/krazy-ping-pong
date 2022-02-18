@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Rect
+import android.util.Log
 import com.gajaharan.krazypingpong.R
 import com.gajaharan.krazypingpong.Velocity
 import java.util.*
@@ -34,7 +35,7 @@ class Ball(
         x += velocity.x
         y += velocity.y
 
-        if (x >= displayWidth - ball.width || x <= 0) {
+        if (x >= displayWidth - ball.width) {
             velocity.x *= -1
         }
         if (y >= displayHeight - ball.height || y <= 0) {
@@ -42,6 +43,14 @@ class Ball(
         }
 
         canvas?.drawBitmap(ball, x.toFloat(), y.toFloat(), null)
+    }
+
+    fun setVelocityX() {
+        velocity.x *= -1
+    }
+
+    fun setVelocityY() {
+        velocity.y += 1
     }
 
     override fun getRectangle() = Rect(x, y, x + width, y + height)

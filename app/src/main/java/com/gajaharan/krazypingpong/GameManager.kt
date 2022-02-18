@@ -51,6 +51,7 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
         canvas?.drawColor(Color.BLACK)
+
         pointBox.draw(canvas)
         ball.draw(canvas)
         leftPaddle.draw(canvas)
@@ -59,6 +60,11 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
     fun update() {
         if (collision(ball, pointBox)) {
             pointBox.generateNewPointBox()
+        }
+
+        if (collision(ball, leftPaddle)) {
+            ball.setVelocityX()
+            ball.setVelocityY()
         }
     }
 
