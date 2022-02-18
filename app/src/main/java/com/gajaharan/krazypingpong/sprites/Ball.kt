@@ -53,5 +53,10 @@ class Ball(
         velocity.y += 1
     }
 
+    fun setVelocity(x: Int, y: Int) {
+        velocity.x = x
+        velocity.y = y
+    }
+
     override fun getRectangle() = Rect(x, y, x + width, y + height)
 }
