@@ -21,7 +21,7 @@ class Ball(
 ) :
     Sprite {
     private val ball: Bitmap
-    private val velocity: Velocity = Velocity(32, 25)
+    val velocity: Velocity = Velocity(32, 25)
 
     init {
         width = resources.getDimension(R.dimen.ball_width).toInt()

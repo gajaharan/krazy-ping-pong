@@ -11,10 +11,7 @@ import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_MOVE
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import com.gajaharan.krazypingpong.sprites.Ball
-import com.gajaharan.krazypingpong.sprites.Box
-import com.gajaharan.krazypingpong.sprites.LeftPaddle
-import com.gajaharan.krazypingpong.sprites.Sprite
+import com.gajaharan.krazypingpong.sprites.*
 import java.util.*
 
 class GameManager(context: Context, attributeSet: AttributeSet) :
@@ -25,6 +22,7 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
     private val pointBox: Box = Box(resources, displayWidth, displayHeight)
     private val ball: Ball = Ball(resources, displayWidth, displayHeight)
     private val leftPaddle: LeftPaddle = LeftPaddle(resources, displayWidth, displayHeight)
+    private val rightPaddle: RightPaddle = RightPaddle(resources, displayWidth, displayHeight)
     private val gameEngine = GameEngine(holder, this)
 
     init {
@@ -56,10 +54,14 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
         pointBox.draw(canvas)
         ball.draw(canvas)
         leftPaddle.draw(canvas)
+        rightPaddle.draw(canvas)
     }
 
     fun update() {
         val randomVelocity = intArrayOf(-35, -30, -25, 25, 30, 35)[Random().nextInt(6)]
+
+        rightPaddle.movePaddle(ball)
+
         if (collision(ball, pointBox)) {
             pointBox.generateNewPointBox()
         }
