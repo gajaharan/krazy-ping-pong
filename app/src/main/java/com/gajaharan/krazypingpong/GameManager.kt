@@ -71,9 +71,23 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
             ball.y = 0
 
             ball.setVelocity(randomVelocity, 32)
+            rightPaddle.score++
+        }
+
+        if (ball.x > rightPaddle.x) {
+            ball.x = 1 + Random().nextInt(displayWidth - ball.width - 1)
+            ball.y = 0
+
+            ball.setVelocity(randomVelocity, 32)
+            leftPaddle.score++
         }
 
         if (collision(ball, leftPaddle)) {
+            ball.setVelocityX()
+            ball.setVelocityY()
+        }
+
+        if (collision(ball, rightPaddle)) {
             ball.setVelocityX()
             ball.setVelocityY()
         }
