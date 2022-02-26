@@ -20,11 +20,14 @@ class Box(
     private var randomBoxColor: Triple<Int, Int, Int> =
         Triple(Random().nextInt(256), Random().nextInt(256), Random().nextInt(256))
     private var boxPoint: Point
+    private val boardSize = 20
+    private var pointSize = 0f
 
     init {
         width = resources.getDimension(R.dimen.box_width).toInt()
         height = resources.getDimension(R.dimen.box_height).toInt()
         boxPoint = generateNewPointBox()
+        pointSize = displayWidth * 0.9f / boardSize
     }
 
     override fun draw(canvas: Canvas?) {
@@ -42,10 +45,17 @@ class Box(
         canvas?.drawRect(getRectangle(), boxPaint)
     }
 
-    override fun getRectangle(): Rect = Rect(x, y, x + width, y + height)
+    override fun getRectangle(): Rect {
+//        val left = (displayWidth * 0.05f + boxPoint.x * pointSize).toInt()
+//        val right = (left + pointSize).toInt()
+//        val top = (displayHeight * 0.1f + boxPoint.y * pointSize).toInt()
+//        val bottom = (top + pointSize).toInt()
+
+        return Rect(x, y, x + width, y + height)
+    }
 
     fun generateNewPointBox(): Point {
-        boxPoint = Point(Random().nextInt(displayWidth / 2), Random().nextInt(displayHeight / 2))
+        boxPoint = Point(Random().nextInt((displayWidth * 0.80).toInt()), Random().nextInt((displayHeight * 0.80).toInt()))
         return boxPoint
     }
 }

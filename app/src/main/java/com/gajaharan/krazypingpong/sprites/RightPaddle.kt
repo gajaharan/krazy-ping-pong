@@ -5,6 +5,7 @@ import android.graphics.*
 import com.gajaharan.krazypingpong.R
 import com.gajaharan.krazypingpong.sprites.Sprite.Companion.TEXT_SIZE
 
+
 class RightPaddle(
     resources: Resources,
     val displayWidth: Int,
@@ -29,7 +30,6 @@ class RightPaddle(
         scorePaint.color = Color.RED
         scorePaint.textSize = TEXT_SIZE
         scorePaint.textAlign = Paint.Align.RIGHT
-
     }
 
     override fun draw(canvas: Canvas?) {
@@ -42,7 +42,7 @@ class RightPaddle(
     fun movePaddle(ball: Ball) {
         when {
             (ball.y <= 0) && (ball.x > displayWidth / 2) -> y = ball.y
-            (ball.y >= displayHeight - height) && (ball.x > displayWidth / 2) -> y = ball.y
+            (ball.y >= displayHeight - height) && (ball.x > displayWidth / 2) -> y = displayHeight - height
             (ball.y > ball.y - ball.velocity.y) && (ball.x < displayWidth / 2) -> y += 15
             (ball.y == ball.y - ball.velocity.y) -> y = ball.y
             (ball.y < ball.y - ball.velocity.y) && (ball.x < displayWidth / 2) -> y -= 15

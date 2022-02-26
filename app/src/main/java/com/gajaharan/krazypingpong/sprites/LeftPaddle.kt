@@ -7,8 +7,8 @@ import com.gajaharan.krazypingpong.sprites.Sprite.Companion.TEXT_SIZE
 
 class LeftPaddle(
     resources: Resources,
-    displayWidth: Int,
-    displayHeight: Int,
+    val displayWidth: Int,
+    val displayHeight: Int,
     var x: Int = 0,
     var y: Int = 0,
     var width: Int = 0,
@@ -38,5 +38,14 @@ class LeftPaddle(
 
     override fun getRectangle() = Rect(x, y, x + width, y + height)
 
-
+    fun movePaddle(ball: Ball) {
+        when {
+            (ball.y <= 0) && (ball.x < displayWidth / 2) -> y = ball.y
+            (ball.y >= displayHeight - height) && (ball.x < displayWidth / 2) -> y = ball.y
+            (ball.y > ball.y - ball.velocity.y) && (ball.x > displayWidth / 2) -> y += 15
+            (ball.y == ball.y - ball.velocity.y) -> y = ball.y
+            (ball.y < ball.y - ball.velocity.y) && (ball.x > displayWidth / 2) -> y -= 15
+            else -> y = ball.y
+        }
+    }
 }
