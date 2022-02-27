@@ -27,7 +27,7 @@ class RightPaddle(
         y = displayHeight / 2 - paddle.height / 2
         x = displayWidth - paddle.width
 
-        scorePaint.color = Color.RED
+        scorePaint.color = Color.WHITE
         scorePaint.textSize = TEXT_SIZE
         scorePaint.textAlign = Paint.Align.RIGHT
     }

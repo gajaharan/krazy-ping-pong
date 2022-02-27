@@ -26,7 +26,7 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
     private val ball: Ball = Ball(resources, displayWidth, displayHeight)
     private val leftPaddle: LeftPaddle = LeftPaddle(resources, displayWidth, displayHeight)
     private val rightPaddle: RightPaddle = RightPaddle(resources, displayWidth, displayHeight)
-    private val gameEngine = GameEngine(holder, this)
+    private var gameEngine = GameEngine(holder, this)
     private var sharedPreferences: SharedPreferences
     private val mpHit = MediaPlayer.create(context, R.raw.hit)
     private val mpMiss = MediaPlayer.create(context, R.raw.miss)
@@ -37,8 +37,12 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
+        if(gameEngine.state == Thread.State.TERMINATED) {
+            gameEngine = GameEngine(holder, this)
+        }
         gameEngine.setRunning(true)
         gameEngine.start()
+
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
@@ -52,6 +56,10 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
+    }
+
+    fun resumeGame(pauseGame: Boolean) {
+        gameEngine.setRunning(pauseGame)
     }
 
     override fun draw(canvas: Canvas?) {

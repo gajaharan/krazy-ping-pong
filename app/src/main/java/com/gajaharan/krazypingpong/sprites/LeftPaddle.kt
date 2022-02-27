@@ -25,7 +25,7 @@ class LeftPaddle(
         paddle = Bitmap.createScaledBitmap(oPaddle, width, height, false)
         y = displayHeight / 2 - paddle.height / 2
 
-        scorePaint.color = Color.RED
+        scorePaint.color = Color.WHITE
         scorePaint.textSize = TEXT_SIZE
         scorePaint.textAlign = Paint.Align.LEFT
 
