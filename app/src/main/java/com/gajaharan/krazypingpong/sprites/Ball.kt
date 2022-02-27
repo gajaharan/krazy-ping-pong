@@ -28,6 +28,10 @@ class Ball(
         height = resources.getDimension(R.dimen.ball_height).toInt()
         val originalBall = BitmapFactory.decodeResource(resources, R.drawable.ball)
         ball = Bitmap.createScaledBitmap(originalBall, width, height, false)
+        initBall()
+    }
+
+    fun initBall() {
         y = Random().nextInt(displayHeight)
     }
 

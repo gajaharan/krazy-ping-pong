@@ -20,6 +20,7 @@ import java.util.*
 class GameManager(context: Context, attributeSet: AttributeSet) :
     SurfaceView(context, attributeSet),
     SurfaceHolder.Callback {
+    private var gameState = GameState.INITIAL
     private var displayWidth = Resources.getSystem().displayMetrics.widthPixels
     private var displayHeight = Resources.getSystem().displayMetrics.heightPixels
     private val pointBox: Box = Box(resources, displayWidth, displayHeight)
@@ -34,6 +35,13 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
     init {
         holder.addCallback(this)
         sharedPreferences = context.getSharedPreferences("my_pref", 0)
+    }
+
+    fun initGame() {
+        ball.initBall()
+        leftPaddle.initPaddle()
+        rightPaddle.initPaddle()
+        gameState = GameState.PLAYING
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -66,14 +74,11 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
         super.draw(canvas)
         canvas?.drawColor(Color.BLACK)
         //drawRegenBox(canvas)
-
         pointBox.draw(canvas)
         ball.draw(canvas)
         leftPaddle.draw(canvas)
         rightPaddle.draw(canvas)
-
         drawCourt(canvas)
-
     }
 
     private fun drawCourt(canvas: Canvas?) {
@@ -95,7 +100,13 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
 //            canvas?.drawLine(displayWidth/2.toFloat(), (displayHeight - a).toFloat(), displayWidth/2.toFloat(), a.toFloat(), courtPain)
 //        }
 
-        canvas?.drawLine(displayWidth/2.toFloat(), 0f, displayWidth/2.toFloat(), displayHeight.toFloat(), courtPain)
+        canvas?.drawLine(
+            displayWidth / 2.toFloat(),
+            0f,
+            displayWidth / 2.toFloat(),
+            displayHeight.toFloat(),
+            courtPain
+        )
     }
 
     private fun drawRegenBox(canvas: Canvas?) {
@@ -121,8 +132,16 @@ class GameManager(context: Context, attributeSet: AttributeSet) :
     fun update() {
         val randomVelocity = intArrayOf(-35, -30, -25, 25, 30, 35)[Random().nextInt(6)]
 
-        //leftPaddle.movePaddle(ball)
-        rightPaddle.movePaddle(ball)
+        when (gameState) {
+            GameState.INITIAL -> {
+                leftPaddle.movePaddle(ball)
+                rightPaddle.movePaddle(ball)
+            }
+            GameState.PLAYING -> {
+                rightPaddle.movePaddle(ball)
+            }
+        }
+
 
         if (collision(ball, pointBox)) {
             pointBox.generateNewPointBox()

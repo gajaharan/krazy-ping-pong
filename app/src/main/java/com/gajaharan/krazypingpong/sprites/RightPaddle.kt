@@ -24,12 +24,16 @@ class RightPaddle(
         height = resources.getDimension(R.dimen.paddle_height).toInt()
         val oPaddle = BitmapFactory.decodeResource(resources, R.drawable.paddle)
         paddle = Bitmap.createScaledBitmap(oPaddle, width, height, false)
+        initPaddle()
+    }
+
+    fun initPaddle() {
         y = displayHeight / 2 - paddle.height / 2
         x = displayWidth - paddle.width
-
         scorePaint.color = Color.WHITE
         scorePaint.textSize = TEXT_SIZE
         scorePaint.textAlign = Paint.Align.RIGHT
+        score = 0
     }
 
     override fun draw(canvas: Canvas?) {

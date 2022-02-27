@@ -30,4 +30,9 @@ class GameActivity : Activity() {
             gameManager.resumeGame(true)
         }
     }
+
+    fun onGameStart(view: View) {
+        gameStart.visibility = View.GONE
+        gameManager.initGame()
+    }
 }
